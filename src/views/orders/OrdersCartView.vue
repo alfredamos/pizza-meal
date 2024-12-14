@@ -1,0 +1,14 @@
+<template>
+  <div>
+    Orders Cart View
+  </div>
+</template>
+
+<script lang="ts" setup>
+
+</script>
+
+<style lang="scss" scoped>
+
+
+</style>
