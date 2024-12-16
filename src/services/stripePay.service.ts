@@ -1,8 +1,8 @@
-import {type Stripe } from '@stripe/stripe-js';
-import http from "../interceptor/axios.interceptor"
-import type { OrderPayload } from '@/models/orders/orderPayload.model';
-import type { Session } from '@/models/stripe/session.model';
-import { environment } from '@/environments/environment.dev';
+import { loadStripe, type Stripe } from "@stripe/stripe-js";
+import http from "../interceptor/axios.interceptor";
+import type { OrderPayload } from "@/models/orders/orderPayload.model";
+import type { Session } from "@/models/stripe/session.model";
+import { environment } from "@/environments/environment.dev";
 
 class StripeService {
   stripePromise: Promise<Stripe> | undefined;
@@ -19,7 +19,7 @@ class StripeService {
       order
     );
 
-    const session = response?.data
+    const session = response?.data;
 
     const result = await stripe?.redirectToCheckout({
       sessionId: session.id,
@@ -38,9 +38,9 @@ class StripeService {
     const response = await fetch(
       `${environment.apiUrl}/stripe-payment/checkout`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'content-type': 'application/json',
+          "content-type": "application/json",
         },
         body: JSON.stringify(orderPayload),
       }
@@ -60,7 +60,7 @@ class StripeService {
   }
 
   private loadStripe(): Promise<Stripe> {
-    return (window as any).Stripe(environment.stripe_publishable_key);
+    return loadStripe(environment.stripe_publishable_key!) as Promise<Stripe>;
   }
 }
 

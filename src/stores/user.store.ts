@@ -1,60 +1,70 @@
-import type { UserPayload } from '@/models/users/userPayload.model';
-import { UserState } from '@/states/userState';
-import { defineStore } from 'pinia'
-import { computed, ref } from 'vue';
+import type { UserPayload } from "@/models/users/userPayload.model";
+import { UserState } from "@/states/userState";
+import { defineStore } from "pinia";
+import { computed, onMounted, ref } from "vue";
 
-export const useUserStore = defineStore('user', () => {
+export const useUserStore = defineStore("user", () => {
+  //----> State
   const userState = ref<UserState>({ ...new UserState() });
-  const stateUser = computed(() => userState.value);
 
-  const users = computed(() => stateUser.value?.users);
+  //----> Getters
+  const users = computed(() => userState.value?.users);
 
-  const addUser = (user: UserPayload) =>{
+  //----> Acts like a constructor
+  onMounted(() => {
+    const stateOfUser = getLocalStorageUsers();
+
+    if (!!stateOfUser) {
+      userState.value = { ...userState.value, users: stateOfUser };
+    }
+  });
+
+  //----> Actions
+  const addUser = (user: UserPayload) => {
     const newUsers = [...userState.value?.users, user];
-    userState.value = {...userState.value, users: newUsers};
+    userState.value = { ...userState.value, users: newUsers };
 
     setLocalStorageUsers(newUsers);
-  }
+  };
 
-  const deleteUser = (userId: string) =>{
+  const deleteUser = (userId: string) => {
     const newUsers = userState.value?.users?.filter(
       (user) => user.id !== userId
     );
 
-    userState.value = {...userState.value, users: newUsers};
+    userState.value = { ...userState.value, users: newUsers };
 
     setLocalStorageUsers(newUsers);
-  }
+  };
 
-  const editUser = (userPayload: UserPayload) =>{
+  const editUser = (userPayload: UserPayload) => {
     const newUsers = userState.value?.users?.map((user) =>
       user.id === userPayload.id ? userPayload : user
     );
-    userState.value = {...userState.value, users: newUsers};
+    userState.value = { ...userState.value, users: newUsers };
 
     setLocalStorageUsers(newUsers);
-  }
+  };
 
-  const editAllUsers = (users: UserPayload[]) =>{
-    userState.value = {...userState.value, users};
+  const editAllUsers = (users: UserPayload[]) => {
+    userState.value = { ...userState.value, users };
 
     setLocalStorageUsers(users);
-    
-  }
+  };
 
-  const setLocalStorageUsers = (users: UserPayload[]) =>{
-    localStorage.setItem('users', JSON.stringify(users));
-  }
+  const setLocalStorageUsers = (users: UserPayload[]) => {
+    localStorage.setItem("users", JSON.stringify(users));
+  };
 
-  const getLocalStorageUsers = () =>{
-    return JSON.parse(localStorage.getItem('users')!) as UserPayload[];
-  }
+  const getLocalStorageUsers = () => {
+    return JSON.parse(localStorage.getItem("users")!) as UserPayload[];
+  };
 
-  const removeLocalStorageUsers = () =>{
-    localStorage.removeItem('users');
-  }
+  const removeLocalStorageUsers = () => {
+    localStorage.removeItem("users");
+  };
 
-  return { 
+  return {
     addUser,
     deleteUser,
     editAllUsers,
@@ -62,7 +72,6 @@ export const useUserStore = defineStore('user', () => {
     getLocalStorageUsers,
     setLocalStorageUsers,
     removeLocalStorageUsers,
-    stateUser,
-    users
-  }
-})
+    users,
+  };
+});

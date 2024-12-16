@@ -1,4 +1,3 @@
-import { firstValueFrom } from 'rxjs';
 import http from "../interceptor/axios.interceptor"
 
 export class ApiClientService<T> {

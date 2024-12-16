@@ -43,13 +43,15 @@ import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { pizzaDbService } from "@/services/pizzaDb.service";
 import { onMounted } from "vue";
-import { cartUtilService } from "@/services/cartUtil.service";
 import { CartItem } from "@/models/cartItems/cartItem.model";
 import type { Pizza } from "@/models/pizzas/pizza.model";
 import AddPizzaItem from "@/components/pizzas/AddPizzaItem.vue";
+import { useCartUtilStore } from "@/stores/cartUtil.store";
 
 const cartItemStore = useCartItemStore();
 const { cartItems, isAddToCart } = storeToRefs(cartItemStore);
+
+const cartUtilStore = useCartUtilStore()
 
 const pizzaStore = usePizzaStore();
 const { pizzas } = storeToRefs(pizzaStore);
@@ -69,7 +71,7 @@ const addToCart = (pizza: Pizza) => {
   console.log("Add to cart");
   cartItemStore.changeIsAddToCart(true);
 
-  cartUtilService.makeCartItems(pizza, cartItems.value);
+  cartUtilStore.makeCartItems(pizza, cartItems.value);
 };
 
 const backToList = () => {

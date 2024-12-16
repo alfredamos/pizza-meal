@@ -5,7 +5,7 @@
     <h2 class="font-semibold border-b-2 text-3xl">
       <span>Add To Cart Confirmation</span>
     </h2>
-    <template v-for="cart in carts">
+    <template v-for="cart in carts" :key="cart.id">
       <p class="flex justify-between items-center py-2 mt-2">
         <span class="font-light">Product</span>
         <span class="font-semibold">{{ cart.name }}</span>
@@ -24,10 +24,7 @@
             class="border border-none text-end"
             @click="quantityIncrease(cart)"
           >
-            <FaPlus
-              size="20px"
-              class="text-indigo-500 font-extrabold"
-            />
+            <FaPlus size="20px" class="text-indigo-500 font-extrabold" />
           </button>
 
           <span class="text-end">{{ cart.quantity }}</span>
@@ -79,12 +76,14 @@
 <script lang="ts" setup>
 import { FaPlus, FaMinus } from "vue3-icons/fa";
 import type { CartItem } from "@/models/cartItems/cartItem.model";
-import { cartUtilService } from "@/services/cartUtil.service";
 import { useCartItemStore } from "@/stores/cartItem.store";
 import { storeToRefs } from "pinia";
+import { useCartUtilStore } from "@/stores/cartUtil.store";
 
 const cartItemStore = useCartItemStore();
 const { cartItems: carts } = storeToRefs(cartItemStore);
+
+const cartUtilStore = useCartUtilStore();
 
 const emit = defineEmits(["onAddToCart"]);
 
@@ -94,23 +93,22 @@ const addToCart = (carts: CartItem[]) => {
 };
 
 const backToPizza = () => {
-  cartUtilService.backToPizza();
+  cartUtilStore.backToPizza();
 };
 
 const quantityIncrease = (cart: CartItem) => {
-  cartUtilService.quantityIncrease(cart);
+  cartUtilStore.quantityIncrease(cart);
 };
 
 const quantityDecrease = (cart: CartItem) => {
-  cartUtilService.quantityDecrease(cart);
+  cartUtilStore.quantityDecrease(cart);
 };
 
 const subTotal = (cart: CartItem) => {
-  return cartUtilService.subTotal(cart);
+  return cartUtilStore.subTotal(cart);
 };
 
 const total = () => {
-  return cartUtilService.totalPrice(carts.value);
+  return cartUtilStore.totalPrice(carts.value);
 };
 </script>
-

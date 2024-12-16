@@ -1,17 +1,25 @@
 import type { Pizza } from '@/models/pizzas/pizza.model';
 import { PizzaState } from '@/models/pizzas/pizzaState.model';
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 export const usePizzaStore = defineStore('pizza', () => {
+  //----> State
   const pizzaState = ref<PizzaState>({ ...new PizzaState() });
-  const statePizza = computed(() => pizzaState.value);
+  
+  //----> Acts like a constructor
+      onMounted(() => {
+        const stateOfPizza = getLocalStoragePizzas();
+    
+        if (!!stateOfPizza) {
+          pizzaState.value = { ...pizzaState.value, pizzas: stateOfPizza };
+        }
+      });
+  
 
-  const localStoragePizza = computed(() => getLocalStoragePizzas());
-
-  const pizzas = computed(() => {
-    return statePizza.value?.pizzas ?? localStoragePizza;
-  });
+  //----> Getters
+  const pizzas = computed(() => pizzaState.value?.pizzas)
+  
 
   const addPizza = (pizza: Pizza) =>{
     const newPizzas = [...pizzaState.value?.pizzas, pizza];
@@ -62,7 +70,6 @@ export const usePizzaStore = defineStore('pizza', () => {
     editAllPizzas,
     editPizza,
     pizzas,
-    statePizza,
     getLocalStoragePizzas,
     setLocalStoragePizzas,
     removeLocalStoragePizzas

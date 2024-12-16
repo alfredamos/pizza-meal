@@ -1,16 +1,25 @@
 import type { CartItem } from '@/models/cartItems/cartItem.model';
 import {  CartItemState } from '@/states/cartItemState';
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 export const useCartItemStore = defineStore('cartItem', () => {
   //----> State
   const cartItemState = ref<CartItemState>({ ...new CartItemState() });
   
+  //----> Acts like a constructor
+    onMounted(() => {
+      const stateOfCartItem = getLocalStorageCartItems();
+  
+      if (!!stateOfCartItem) {
+        cartItemState.value = { ...cartItemState.value, cartItems: stateOfCartItem };
+      }
+    });
+
   //----> Getters
   const stateCartItem = computed(() => cartItemState.value);
-  const cartItems = computed(() => stateCartItem.value?.cartItems);
-  const isAddToCart = computed(() => stateCartItem.value?.isAddToCart);
+  const cartItems = computed(() => cartItemState.value?.cartItems);
+  const isAddToCart = computed(() => cartItemState.value?.isAddToCart);
 
   //----> Actions
   const addCartItem = (cart: CartItem) =>{
