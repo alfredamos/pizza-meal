@@ -8,6 +8,6 @@ export class Pizza {
   quantity: number = 0;
   image: string = '';
   description: string = '';
-  cartItems: CartItem[] = [];
+  cartItems?: CartItem[] = [];
   userId: string = '';
 }
