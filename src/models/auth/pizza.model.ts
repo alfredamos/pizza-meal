@@ -1,5 +1,5 @@
 export class PizzaModel {
-  id?: string = "";
+  id: string = "";
   name: string = "";
   price: number = 0;
   topping: string = "";

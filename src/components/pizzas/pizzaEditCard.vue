@@ -14,6 +14,7 @@ import type { Pizza } from '@/models/pizzas/pizza.model';
 const props = defineProps<{formName: string; pizza: Pizza}>();
 const emit = defineEmits(['onCancel', 'onEdit']);
 
+
 const backToList = () =>{
     emit('onCancel');
   }

@@ -49,7 +49,12 @@
           <td>{{ pizza.description }}</td>
           <td>{{ pizza.topping }}</td>
           <td>
-            <DeleteViewEditButtonsPizzaTable :pizza="pizza" :id="pizza.id" />
+            <DeleteViewEditButtonsPizzaTable
+              :pizza="pizza"
+              :id="pizza.id"
+              @on-delete="deletePizza"
+              @on-edit="editPizza"
+            />
           </td>
         </tr>
       </tbody>
@@ -57,7 +62,7 @@
     <div class="flex items-center justify-end my-8">
       <RouterLink
         to="/pizzas/new"
-        class="bg-indigo-500 text-indigo-100 px-12 py-4 rounded-lg uppercase font-bold"
+        class="bg-violet-900 text-violet-100 px-12 py-4 rounded-lg uppercase font-bold"
       >
         Add Pizza
       </RouterLink>
@@ -89,6 +94,7 @@ const loadPizza = async () => {
   const { data: pizzas } = await pizzaDbService.getAllResources();
   pizzaStore.editAllPizzas(pizzas);
   filteredPizzas.value = [...pizzas];
+  console.log("in on-mounted, pizzas : ", pizzas);
 };
 
 const submitSearch = async () => {
@@ -102,5 +108,19 @@ const submitSearch = async () => {
   );
 
   filteredPizzas.value = [...searchedPizzas];
+};
+
+const deletePizza = (pizzaId: string) => {
+  filteredPizzas.value = pizzas.value?.filter((pizza) => pizza.id !== pizzaId);
+
+  pizzaStore.deletePizza(pizzaId);
+};
+
+const editPizza = (updatedPizza: Pizza) => {
+  filteredPizzas.value = pizzas.value?.map((pizza) =>
+    pizza.id === updatedPizza.id ? updatedPizza : pizza
+  );
+
+  pizzaStore.editPizza(updatedPizza);
 };
 </script>

@@ -23,25 +23,24 @@
   <div class="flex items-center w-full mt-2">
     <button
       type="button"
-      class="py-2 px-4 border-2 border-violet-900 hover:bg-violet-900 hover:text-indigo-100 text-violet-900 font-bold text-base rounded-lg mr-2"
+      class="py-2 px-4 border-2 border-indigo-900 hover:bg-indigo-900 hover:text-indigo-100 text-indigo-900 font-bold text-base rounded-lg mr-2"
       @click="pizzaViewConfirmation"
     >
       view
     </button>
-
     <button
       type="button"
-      class="py-2 px-4 border-2 border-rose-900 hover:bg-rose-900 hover:text-rose-100 text-rose-900 font-bold text-base rounded-lg mr-2"
-      @click="pizzaDeleteConfirmation"
-    >
-      Delete
-    </button>
-    <button
-      type="button"
-      class="py-2 px-4 border-2 border-yellow-500 hover:bg-orange-400 hover:text-yellow-100 text-orange-400 font-bold text-base rounded-lg mr-2"
+      class="py-2 px-4 border-2 border-amber-500 hover:bg-amber-500 hover:text-amber-100 text-amber-500 font-bold text-base rounded-lg mr-2"
       @click="pizzaEditConfirmation"
     >
       Edit
+    </button>
+    <button
+      type="button"
+      class="py-2 px-4 border-2 border-red-900 hover:bg-red-900 hover:text-red-100 text-red-900 font-bold text-base rounded-lg mr-2"
+      @click="pizzaDeleteConfirmation"
+    >
+      Delete
     </button>
   </div>
 </template>
@@ -57,11 +56,13 @@ import PizzaEditDialog from "./pizzaEditDialog.vue";
 import PizzaViewDialog from "./pizzaViewDialog.vue";
 
 const props = defineProps<{ id: string; pizza: Pizza }>();
-
+console.log("In pizza-edit-dialog, id : ", props?.id);
 const isDeletePizza = ref(false);
 const isEditPizza = ref(false);
 const isViewPizza = ref(false);
 const refresh = ref(false);
+
+const emit = defineEmits(['onEdit', 'onDelete']);
 
 const authStore = useAuthStore();
 
@@ -83,11 +84,17 @@ const pizzaViewConfirmation = () => {
 };
 
 const editPizza = async (pizza: Pizza) => {
-  console.log("Please edit me now!!!");
+  console.log("Please edit me now!!! => id : ", props?.id);
   pizza.userId = userId;
+  pizza.id = props?.id;
   console.log("pizza info edited : ", pizza);
 
-  await pizzaDbService.editResource(props?.id, pizza);
+  const { data: updatedPizza } = await pizzaDbService.editResource(
+    props?.id,
+    pizza
+  );
+
+  emit('onEdit', updatedPizza)
 
   isEditPizza.value = !isEditPizza.value;
 
@@ -101,11 +108,13 @@ const backToList = () => {
   if (isViewPizza.value) isViewPizza.value = !isViewPizza.value;
 };
 
-const deletePizza = async (id: string) => {
+const deletePizza = async () => {
   console.log("Please delete me now!!!");
-  console.log("pizza info deleted : ", id);
+  console.log("pizza info deleted : ", props?.id);
 
-  await pizzaDbService.deleteResource(id);
+  await pizzaDbService.deleteResource(props?.id);
+
+  emit('onDelete', props?.id);
 
   isDeletePizza.value = !isDeletePizza.value;
 

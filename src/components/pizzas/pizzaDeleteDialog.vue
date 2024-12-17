@@ -4,7 +4,7 @@
       @click="$event.stopPropagation()"
       :pizza="props?.pizza"
       @on-back-to-list="backToList"
-      @on-delete="deletePizza"
+      @on-delete="deletePizza()"
     />
   </ModalAlert>
 </template>
@@ -21,7 +21,7 @@ const backToList = () => {
   emit("onBackToList");
 };
 
-const deletePizza = (pizzaId: string) => {
-  emit("onDelete", pizzaId);
+const deletePizza = () => {
+  emit("onDelete");
 };
 </script>
