@@ -23,6 +23,7 @@ import EditPizzaView from "@/views/pizzas/EditPizzaView.vue";
 import TableUsersView from "@/views/users/TableUsersView.vue";
 import { protectedRoute } from "@/routes-protector/protected-route";
 import { adminRoute } from "@/routes-protector/admin-route";
+import NewUserView from "@/views/users/NewUserView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -139,6 +140,12 @@ const router = createRouter({
       path: "/users",
       component: TableUsersView,
       name: "users",
+      beforeEnter: [protectedRoute, adminRoute],
+    },
+    {
+      path: "/users/new",
+      component: NewUserView,
+      name: "new-user",
       beforeEnter: [protectedRoute, adminRoute],
     },
   ],

@@ -1,12 +1,12 @@
 <template>
-  <signupForm
+  <SignupForm
     @on-back-to-list="backToList"
     @on-submit-form="submitForm"
   />
 </template>
 
 <script lang="ts" setup>
-import signupForm from '@/components/forms/auth/signup.form.vue';
+import SignupForm from '@/components/forms/auth/Signup.form.vue';
 import { useRouter } from 'vue-router';
 import { authDbService } from '../../services/authDb.service';
 import type { SignupModel } from '@/models/auth/signup.model';
