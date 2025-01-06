@@ -86,6 +86,7 @@ import { onMounted, ref } from "vue";
 import type { OrderModel } from "@/models/orders/orderModel.model";
 import { orderDbService } from "@/services/orderDb.service";
 import { Status } from "@/models/auth/status.model";
+import { toast } from "vue3-toastify";
 
 const orderStore = useOrderStore();
 const { orders } = storeToRefs(orderStore);
@@ -128,6 +129,9 @@ const onShippedOrder = async (orderId: string) => {
       ?.map((order) => (order.id === orderId ? updatedOrder : order))
       ?.filter((ord) => ord?.status === Status.Pending),
   ];
+
+  //-----> Order shipped
+  toast.success("Order has been shipped!");
 
   orderStore.editOrder(updatedOrder);
   orderStore.changeIsPending(false);

@@ -70,6 +70,7 @@ import { onMounted, ref } from "vue";
 import type { OrderModel } from "@/models/orders/orderModel.model";
 import { orderDbService } from "@/services/orderDb.service";
 import { Status } from "@/models/auth/status.model";
+import {toast} from "vue3-toastify"
 
 const orderStore = useOrderStore();
 const { orders } = storeToRefs(orderStore);
@@ -99,6 +100,8 @@ const onDeliveredOrder = async (orderId: string) => {
       ?.map((order) => (order.id === orderId ? updatedOrder : order))
       ?.filter((ord) => ord.status === Status.Shipped),
   ];
+
+  toast.success("Order has been delivered!");
 
   orderStore.editOrder(updatedOrder);
 };

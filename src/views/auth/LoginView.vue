@@ -20,9 +20,9 @@ const backToList = () => {
 const submitForm = async (loginModel: LoginModel) => {
   const { data: authStateRes } = await authDbService.login(loginModel);
 
-  authStore.login(authStateRes);
-
   toast.success("Login is successful!");
+
+  authStore.login(authStateRes);
 
   router.push("/");
 };

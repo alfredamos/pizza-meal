@@ -62,6 +62,7 @@ import { useRouter } from "vue-router";
 import { computed } from "vue";
 import type { CartItem } from "@/models/cartItems/cartItem.model";
 import { stripeService } from "@/services/stripePay.service";
+import { toast } from "vue3-toastify";
 
 const authStore = useAuthStore();
 const cartItemStore = useCartItemStore();
@@ -78,9 +79,12 @@ const totalPrice = computed(() => cartUtilStore.totalPrice(carts.value));
 const initiateStripe = () => {
   const orderPayload = cartUtilStore.makeOrder(userId, carts.value);
   stripeService.checkout(orderPayload);
+  //----> Items payment initiated.
+  toast.success("Items payment initiated!")
 };
 
 const subTotal = (cart: CartItem) => {
+  //----> Get the total
   return cartUtilStore.subTotal(cart);
 };
 </script>

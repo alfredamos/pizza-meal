@@ -24,9 +24,8 @@ const backToList = () => {
 }
 
 const submitForm = async (editProfileModel: EditProfileModel) => {
-  await authDbService.editProfile(editProfileModel);
-
   toast.success("Profile is changed successfully!")
+  await authDbService.editProfile(editProfileModel);
 
   router.push("/")
 }

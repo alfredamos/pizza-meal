@@ -94,6 +94,7 @@ import { useCartItemStore } from "@/stores/cartItem.store";
 import { useCartUtilStore } from "@/stores/cartUtil.store";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify";
 
 const cartUtilStore = useCartUtilStore();
 
@@ -106,21 +107,24 @@ const increaseQuantity = (cart: CartItem) => {
   console.log("Increase quantity of cart-id : ", cart.id);
   //----> Increase the quantity of the cart-item.
   cartUtilStore.quantityIncrease(cart);
-  
+  //----> Show toast for increasing cart-item.
+  toast.success("item is increased successfully!");
 };
 
 const decreaseQuantity = (cart: CartItem) => {
   console.log("Decrease quantity of cart-id : ", cart.id);
   //----> Decrease the quantity of the cart-item.
   cartUtilStore.quantityDecrease(cart);
-  
+  //----> Show toast for decreasing cart-item.
+  toast.success("item is decreased successfully!");
 };
 
 const removePizza = (cartId: string) => {
   console.log("Increase quantity of cart-id : ", cartId);
   //----> Remove cart-item.
   cartUtilStore.removeCartItem(cartId, carts.value);
-  
+  //----> Show toast for removing cart-item.
+  toast.success("item is removed successfully!");
 };
 
 const makeCheckout = () => {

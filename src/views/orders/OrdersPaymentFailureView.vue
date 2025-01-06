@@ -5,10 +5,11 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from 'vue';
+import {toast} from "vue3-toastify"
 
+onMounted(() => {
+  toast.error("Payment failed!");
+})
 </script>
 
-<style lang="scss" scoped>
-
-
-</style>

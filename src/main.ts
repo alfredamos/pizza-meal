@@ -19,7 +19,7 @@ app.use(router);
 app.use(VueQueryPlugin);
 
 app.use(Vue3Toastify, {
-  autoClose: true,
+  autoClose: 10000,
   reverseOrder: true,
   dismissible: true,
   position: "bottom-right",

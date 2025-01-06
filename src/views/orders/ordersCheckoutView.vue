@@ -62,6 +62,7 @@ import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useCartUtilStore } from "@/stores/cartUtil.store";
 import type { CartItem } from "@/models/cartItems/cartItem.model";
+import {toast} from "vue3-toastify"
 
 //---> stores
 const cartUtilStore = useCartUtilStore();
@@ -71,7 +72,10 @@ const router = useRouter();
 const { cartItems: carts } = storeToRefs(cartItemStore);
 
 const makePayment = () => {
+  //----> Items sent to checkout
+  toast.success("Items have been successfully checked out!")
   cartItemStore.editAllCatItems(carts.value);
+  
   router.push("/orders/payment");
 };
 

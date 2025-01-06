@@ -25,9 +25,8 @@ const backToList = () => {
 }
 
 const submitForm = async(changePasswordModel: ChangePasswordModel) => {
-  await authDbService.changePassword(changePasswordModel);
-
   toast.success("Password change is successful!")
+  await authDbService.changePassword(changePasswordModel);
   router.push("/");
 }
 

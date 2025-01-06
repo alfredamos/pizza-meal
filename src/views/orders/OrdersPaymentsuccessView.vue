@@ -25,8 +25,9 @@
 import { storeToRefs } from "pinia";
 import { useCartItemStore } from "@/stores/cartItem.store";
 import { useCartUtilStore } from "@/stores/cartUtil.store";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify"
 
 const cartItemStore = useCartItemStore();
 const cartUtilStore = useCartUtilStore();
@@ -36,6 +37,10 @@ const { cartItems: carts } = storeToRefs(cartItemStore);
 
 const totalPrice = computed(() => cartUtilStore.totalPrice(carts.value));
 const totalQuantity = computed(() => cartUtilStore.totalQuantity(carts.value));
+
+onMounted(() => {
+  toast.success("Payment is successful!");
+})
 
 const backToPizzas = () => {
   cartItemStore.removeLocalStorageCartItems();
