@@ -3,6 +3,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { VueQueryPlugin } from "@tanstack/vue-query";
+import Vue3Toastify, { type ToastContainerOptions } from "vue3-toastify";
 
 import App from "./App.vue";
 import router from "./router";
@@ -15,5 +16,10 @@ app.use(createPinia());
 app.use(router);
 
 app.use(VueQueryPlugin);
+
+app.use(Vue3Toastify, {
+  autoClose: 3000,
+  position: 'bottom-right'
+} as ToastContainerOptions);
 
 app.mount("#app");

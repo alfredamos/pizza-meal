@@ -35,13 +35,9 @@
           @mouseenter="onOpenDropdown()"
         >
           <img
-            class="w-15 h-auto rounded-full object-cover aspect-square"
+            class="w-15 h-auto rounded-full object-cover aspect-square border-indigo-900 border-2"
             alt="Tailwind CSS Navbar component"
-            :src="
-              !!currentUser
-                ? currentUser.image
-                : 'Tailwind CSS Navbar component'
-            "
+            :src="currentUser.image || '/avatar3.jpg'"
           />
         </div>
         <ul
@@ -103,6 +99,7 @@ import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
 import type { UserResponseModel } from "@/models/users/userResponse.model";
 import type { CartItem } from "@/models/cartItems/cartItem.model";
+import imgUrl from "../../public/images/avatar-vue.jpg";
 
 const props = defineProps<{
   cartItems: CartItem[];
