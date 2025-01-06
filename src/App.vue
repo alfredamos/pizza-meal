@@ -5,10 +5,13 @@ import SideBar from "./utils/SideBar.vue";
 import { useAuthStore } from "./stores/auth.store";
 import { storeToRefs } from "pinia";
 import { useCartItemStore } from "./stores/cartItem.store";
+import { computed } from "vue";
 
 const { currentUser, isAdmin, isLoggedIn } = storeToRefs(useAuthStore());
 
 const { cartItems } = storeToRefs(useCartItemStore());
+
+const firstName = computed(() => currentUser.value?.name?.split(" ")[0] ?? "");
 </script>
 
 <template>
@@ -17,6 +20,7 @@ const { cartItems } = storeToRefs(useCartItemStore());
     :is-admin="isAdmin"
     :is-logged-in="isLoggedIn"
     :cart-items="cartItems"
+    :first-name="firstName"
   />
 
   <main class="grid grid-cols-12">

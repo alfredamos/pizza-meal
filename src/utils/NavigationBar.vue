@@ -1,51 +1,48 @@
 <template>
   <div
-    class="navbar shadow-2xl bg-zinc-100 rounded text-black font-semibold py-4 px-4 mt-2 relative flex justify-between items-center"
+    class="navbar shadow-2xl bg-zinc-100 rounded text-black font-semibold py-4 px-4 mt-2 flex justify-between items-center"
   >
-    <div
-      :class="
-        props?.isLoggedIn || totalQuantity === 0
-          ? 'flex items-center mt-4 absolute top-0 right-0'
-          : 'hidden'
-      "
-    >
-      <RouterLink
-        class="btn btn-ghost text-xl flex justify-center item-center"
-        to="/orders/cart"
-        >Pizza-Order
-        <span
-          :class="
-            totalQuantity
-              ? 'inline-block bg-rose-900 text-rose-100 rounded-full py-1 px-3'
-              : 'undefined'
-          "
+    <div class="mt-6 relative w-full">
+      <div
+        :class="
+          isLoggedIn || totalQuantity === 0
+            ? 'btn btn-ghost text-xl absolute -top-10 left-0'
+            : 'hidden'
+        "
+      >
+        Pizzeria
+        <RouterLink class="flex justify-center item-center" to="/orders/cart">
+          <span
+            :class="
+              totalQuantity
+                ? 'inline-block bg-rose-900 text-rose-100 rounded-full py-1 px-3'
+                : 'undefined'
+            "
+          >
+            {{ totalQuantity ? totalQuantity : undefined }}
+          </span></RouterLink
         >
-          {{ totalQuantity ? totalQuantity : undefined }}
-        </span></RouterLink
-      >
+      </div>
     </div>
-    <div class="flex gap-4">
-      <span
-        class="font-semibold flex justify-center item-center text-xl mb-2"
-        >{{ props?.currentUser?.name }}</span
-      >
+
+    <div class="flex gap-4 text-xl">
+      <div class="text-xl flex self-center">{{ firstName }}</div>
       <div class="dropdown dropdown-end">
         <div
           tabindex="0"
           role="button"
           class="btn btn-ghost btn-circle avatar"
-          @mouseenter="onOpenDropdown"
+          @mouseenter="onOpenDropdown()"
         >
-          <div class="w-15 rounded-full object-cover">
-            <img
-              alt="Tailwind CSS Navbar component"
-              :src="
-                !!props?.currentUser
-                  ? props?.currentUser?.image
-                  : 'Tailwind CSS Navbar component'
-              "
-            />
-          </div>
+          <img
+            class="w-15 h-auto rounded-full object-cover aspect-square"
+            alt="Tailwind CSS Navbar component"
+            :src="
+              !!currentUser
+                ? currentUser.image
+                : 'Tailwind CSS Navbar component'
+            "
+          />
         </div>
         <ul
           tabindex="0"
@@ -54,15 +51,16 @@
               ? 'menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow block'
               : 'hidden'
           "
-          @mouseleave="onOpenDropdown"
+          @mouseleave="onOpenDropdown()"
         >
-          <template v-if="props?.isLoggedIn">
+          <template v-if="!!isLoggedIn">
             <li>
               <RouterLink to="/change-password">Change Password</RouterLink>
             </li>
             <li><RouterLink to="/edit-profile">Edit Profile</RouterLink></li>
           </template>
-          <template v-if="props?.isAdmin">
+
+          <template v-if="isAdmin">
             <li><RouterLink to="/orders">All Orders</RouterLink></li>
             <li>
               <RouterLink to="/orders/orders-delivered"
@@ -82,16 +80,16 @@
             <li><RouterLink to="/pizzas">Pizzas</RouterLink></li>
             <li><RouterLink to="/users">Users</RouterLink></li>
           </template>
-          <template v-if="props?.isLoggedIn">
+
+          <template v-if="!!isLoggedIn">
             <li>
               <RouterLink to="/orders/orders-by-user-id">My Orders</RouterLink>
             </li>
             <li><RouterLink to="/logout">Logout</RouterLink></li>
           </template>
-          <template v-if="!props?.isLoggedIn">
-            <li>
-              <RouterLink to="/login">Login</RouterLink>
-            </li>
+
+          <template v-if="!isLoggedIn">
+            <li><RouterLink to="/login">Login</RouterLink></li>
             <li><RouterLink to="/signup">Signup</RouterLink></li>
           </template>
         </ul>
@@ -109,6 +107,7 @@ import type { CartItem } from "@/models/cartItems/cartItem.model";
 const props = defineProps<{
   cartItems: CartItem[];
   currentUser: UserResponseModel;
+  firstName: string;
   isAdmin: boolean;
   isLoggedIn: boolean;
 }>();
