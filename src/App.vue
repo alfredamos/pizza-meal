@@ -1,4 +1,5 @@
 <script setup lang="ts">
+//import "vue3-toastify/dist/index.css";
 import { RouterView } from "vue-router";
 import NavigationBar from "./utils/NavigationBar.vue";
 import SideBar from "./utils/SideBar.vue";

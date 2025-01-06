@@ -8,6 +8,7 @@ import Vue3Toastify, { type ToastContainerOptions } from "vue3-toastify";
 import App from "./App.vue";
 import router from "./router";
 import "./index.css";
+import "vue3-toastify/dist/index.css";
 
 const app = createApp(App);
 
@@ -18,8 +19,10 @@ app.use(router);
 app.use(VueQueryPlugin);
 
 app.use(Vue3Toastify, {
-  autoClose: 3000,
-  position: 'bottom-right'
+  autoClose: true,
+  reverseOrder: true,
+  dismissible: true,
+  position: "bottom-right",
 } as ToastContainerOptions);
 
 app.mount("#app");

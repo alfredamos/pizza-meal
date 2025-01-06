@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts" setup>
+import { toast } from "vue3-toastify";
 import LoginForm from "@/components/forms/auth/Login.form.vue";
 import type { LoginModel } from "@/models/auth/login.model";
 import { useAuthStore } from "@/stores/auth.store";
@@ -18,8 +19,10 @@ const backToList = () => {
 
 const submitForm = async (loginModel: LoginModel) => {
   const { data: authStateRes } = await authDbService.login(loginModel);
-  
+
   authStore.login(authStateRes);
+
+  toast.success("Login is successful!");
 
   router.push("/");
 };

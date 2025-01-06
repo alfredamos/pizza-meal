@@ -7,7 +7,8 @@
 </template>
 
 <script lang="ts" setup>
-import ChangePasswordForm from '@/components/forms/auth/changePassword.form.vue';
+import {toast} from "vue3-toastify"
+import ChangePasswordForm from '@/components/forms/auth/ChangePassword.form.vue';
 import type { ChangePasswordModel } from '@/models/auth/changePassword.model';
 import { useAuthStore } from '@/stores/auth.store';
 import { useRouter } from 'vue-router';
@@ -26,6 +27,7 @@ const backToList = () => {
 const submitForm = async(changePasswordModel: ChangePasswordModel) => {
   await authDbService.changePassword(changePasswordModel);
 
+  toast.success("Password change is successful!")
   router.push("/");
 }
 

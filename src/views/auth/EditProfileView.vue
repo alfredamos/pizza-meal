@@ -7,6 +7,7 @@
 </template>
 
 <script lang="ts" setup>
+import {toast} from "vue3-toastify"
 import EditProfileForm from '@/components/forms/auth/EditProfile.form.vue';
 import type { EditProfileModel } from '@/models/auth/editProfile.model';
 import { authDbService } from '@/services/authDb.service';
@@ -24,6 +25,8 @@ const backToList = () => {
 
 const submitForm = async (editProfileModel: EditProfileModel) => {
   await authDbService.editProfile(editProfileModel);
+
+  toast.success("Profile is changed successfully!")
 
   router.push("/")
 }

@@ -1,30 +1,27 @@
 <template>
-  <SignupForm
-    @on-back-to-list="backToList"
-    @on-submit-form="submitForm"
-  />
+  <SignupForm @on-back-to-list="backToList" @on-submit-form="submitForm" />
 </template>
 
 <script lang="ts" setup>
-import SignupForm from '@/components/forms/auth/Signup.form.vue';
-import { useRouter } from 'vue-router';
-import { authDbService } from '../../services/authDb.service';
-import type { SignupModel } from '@/models/auth/signup.model';
+import { toast } from "vue3-toastify";
+import SignupForm from "@/components/forms/auth/Signup.form.vue";
+import { useRouter } from "vue-router";
+import { authDbService } from "../../services/authDb.service";
+import type { SignupModel } from "@/models/auth/signup.model";
 
 const router = useRouter();
 
-const backToList = () =>{
+const backToList = () => {
   router.back();
-}
+};
 
-const submitForm = async(signupModel: SignupModel) =>{
+const submitForm = async (signupModel: SignupModel) => {
   await authDbService.signup(signupModel);
 
+  toast.success("Signup is successful!");
+
   router.push("/");
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-
-</style>
+<style lang="scss" scoped></style>

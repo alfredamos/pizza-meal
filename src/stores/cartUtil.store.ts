@@ -89,6 +89,19 @@ const quantityDecrease =(cart: CartItem) =>{
     if (cart?.quantity > 0) cartItemStore.editCartItem(newCart);
   }
 
+const removeCartItem = (cartId: string, carts: CartItem[]) => {
+  const newCartItems = carts?.filter((cart) => {
+    if (cart.id === cartId) {
+      cartItemStore.deleteCartItem(cart.id);
+      return;
+    }
+
+    return cart;
+  });
+
+  cartItemStore.editAllCatItems(newCartItems);
+}
+
 const subTotal =(cart: CartItem) =>{
     return cart.quantity * cart.price;
   }
@@ -109,6 +122,7 @@ const totalQuantity =(carts: CartItem[]) =>{
     makeOrder,
     quantityDecrease,
     quantityIncrease,
+    removeCartItem,
     subTotal,
     totalPrice,
     totalQuantity

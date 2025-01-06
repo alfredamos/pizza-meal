@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts" setup>
+import {toast} from "vue3-toastify"
 import { useAuthStore } from "@/stores/auth.store";
 import { useCartItemStore } from "@/stores/cartItem.store";
 import { usePizzaStore } from "@/stores/pizza.store";
@@ -22,6 +23,8 @@ const logoutSubmit = () => {
   cartItemStore.removeLocalStorageCartItems();
   pizzaStore.removeLocalStoragePizzas();
   authStore.logout();
+
+  toast.success("Logout is successful!");
 
   router.push("/");
 };

@@ -104,37 +104,23 @@ const router = useRouter();
 
 const increaseQuantity = (cart: CartItem) => {
   console.log("Increase quantity of cart-id : ", cart.id);
-  const newCart = {
-    ...cart,
-    quantity: cart.quantity >= 20 ? 20 : cart.quantity + 1,
-  };
-
-  cartItemStore.editCartItem(newCart);
+  //----> Increase the quantity of the cart-item.
+  cartUtilStore.quantityIncrease(cart);
+  
 };
 
 const decreaseQuantity = (cart: CartItem) => {
   console.log("Decrease quantity of cart-id : ", cart.id);
-  const newCart = {
-    ...cart,
-    quantity: cart.quantity <= 1 ? 1 : cart.quantity - 1,
-  };
-  if (cart?.quantity === 0) cartItemStore.deleteCartItem(newCart.id); //dispatch(deleteCartItem({ cartItemId: cart.id }));
-  if (cart?.quantity > 0) cartItemStore.editCartItem(newCart); //dispatch(editCartItem({ cartItem: newCart }));
+  //----> Decrease the quantity of the cart-item.
+  cartUtilStore.quantityDecrease(cart);
+  
 };
 
 const removePizza = (cartId: string) => {
   console.log("Increase quantity of cart-id : ", cartId);
-
-  const newCartItems = carts.value?.filter((cart) => {
-    if (cart.id === cartId) {
-      cartItemStore.deleteCartItem(cart.id);
-      return;
-    }
-
-    return cart;
-  }) as CartItem[];
-
-  cartItemStore.editAllCatItems(newCartItems);
+  //----> Remove cart-item.
+  cartUtilStore.removeCartItem(cartId, carts.value);
+  
 };
 
 const makeCheckout = () => {
