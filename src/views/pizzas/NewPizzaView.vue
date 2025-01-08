@@ -51,6 +51,6 @@ const submitPizza = async (pizza: Pizza) => {
   pizzaStore.addPizza(newPizza);
   console.log({ newPizza });
 
-  router.push("/");
+  router.push("/pizzas");
 };
 </script>

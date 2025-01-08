@@ -3,7 +3,7 @@
     class="bg-white text-slate-800 max-w-lg flex flex-col justify-center items-center mx-auto rounded-xl shadow-2xl py-10 mt-10"
     @submit.prevent="submitForm"
   >
-    <h4 class="font-bold text-slate-800 text-2xl mb-6">Edit profile Form</h4>
+    <h4 class="font-bold text-slate-800 text-2xl mb-6">Signup Form</h4>
     <div class="mb-6 w-full px-10">
       <label
         for="name"
