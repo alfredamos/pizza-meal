@@ -148,6 +148,7 @@ const router = createRouter({
       name: "new-user",
       beforeEnter: [protectedRoute, adminRoute],
     },
+    
   ],
 });
 

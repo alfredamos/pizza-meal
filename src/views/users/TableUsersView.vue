@@ -58,14 +58,6 @@
         </tr>
       </tbody>
     </table>
-    <div class="flex items-center justify-end my-8">
-      <RouterLink
-        to="/users/new"
-        class="bg-violet-900 text-violet-100 px-12 py-4 rounded-lg uppercase font-bold"
-      >
-        Add User
-      </RouterLink>
-    </div>
   </div>
 </template>
 

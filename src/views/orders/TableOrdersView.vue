@@ -48,7 +48,6 @@
 </template>
 
 <script lang="ts" setup>
-import { Status } from "@/models/auth/status.model";
 import { orderDbService } from "@/services/orderDb.service";
 import { useOrderStore } from "@/stores/order.store";
 import { storeToRefs } from "pinia";

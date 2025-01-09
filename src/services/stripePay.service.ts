@@ -3,10 +3,12 @@ import http from "../interceptor/axios.interceptor";
 import type { OrderPayload } from "@/models/orders/orderPayload.model";
 import type { Session } from "@/models/stripe/session.model";
 import { environment } from "@/environments/environment.dev";
+import type { UserPayload } from "@/models/users/userPayload.model";
+import type { Pizza } from "@/models/pizzas/pizza.model";
 
 class StripeService {
   stripePromise: Promise<Stripe> | undefined;
-
+  baseUrl = `${environment.apiUrl}/stripe`;
   constructor() {
     this.stripePromise = this.loadStripe();
   }
@@ -15,14 +17,14 @@ class StripeService {
     const stripe = await this.stripePromise;
 
     const response = await http.post<Session>(
-      `${environment.apiUrl}/stripe-payment/checkout`,
+      `${this.baseUrl}/checkout`,
       order
     );
 
     const session = response?.data;
 
     const result = await stripe?.redirectToCheckout({
-      sessionId: session.id,
+      sessionId: session?.id,
     });
 
     if (result?.error) {
@@ -32,31 +34,18 @@ class StripeService {
     return session;
   }
 
-  async redirectToCheckout(orderPayload: OrderPayload): Promise<Stripe> {
-    const stripe = await this.stripePromise;
+  async getStripeCustomers() {
+    const url = `${this.baseUrl}/customers`;
+    const response = await http.get<UserPayload[]>(url);
 
-    const response = await fetch(
-      `${environment.apiUrl}/stripe-payment/checkout`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(orderPayload),
-      }
-    );
+    return response?.data;
+  }
 
-    const session = await response.json();
+  async getStripeProducts() {
+    const url = `${this.baseUrl}/products`;
+    const response = await http.get<Pizza[]>(url);
 
-    const result = await stripe?.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    if (result?.error) {
-      console.error(result.error.message);
-    }
-
-    return session;
+    return response?.data;
   }
 
   private loadStripe(): Promise<Stripe> {

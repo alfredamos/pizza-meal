@@ -1,12 +1,10 @@
-import http from "../interceptor/axios.interceptor"
+import http from "../interceptor/axios.interceptor";
 
 export class ApiClientService<T> {
-
   constructor(public baseUrl: string) {}
 
   async createResource(resource: T) {
     const response = await http.post<T>(this.baseUrl, resource);
-
 
     return response;
   }
@@ -24,6 +22,8 @@ export class ApiClientService<T> {
 
     const response = await http.patch<T>(url, resource);
 
+    console.log({ response });
+
     return response;
   }
 
@@ -37,9 +37,7 @@ export class ApiClientService<T> {
 
   async getAllResources() {
     const response = await http.get<T[]>(this.baseUrl);
-    
+
     return response;
   }
-
-  
 }
