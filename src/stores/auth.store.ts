@@ -1,8 +1,6 @@
 import { AuthState } from "@/states/authState";
 import { defineStore } from "pinia";
 import { ref, computed, onMounted } from "vue";
-import { authDbService } from "@/services/authDb.service";
-import type { LoginModel } from "@/models/auth/login.model";
 
 export const useAuthStore = defineStore("auth", () => {
   //----> State

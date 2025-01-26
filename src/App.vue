@@ -1,5 +1,4 @@
 <script setup lang="ts">
-//import "vue3-toastify/dist/index.css";
 import { RouterView } from "vue-router";
 import NavigationBar from "./utils/NavigationBar.vue";
 import SideBar from "./utils/SideBar.vue";
@@ -9,18 +8,18 @@ import { useCartItemStore } from "./stores/cartItem.store";
 import { computed } from "vue";
 
 const { currentUser, isAdmin, isLoggedIn } = storeToRefs(useAuthStore());
+const { totalQuantity } = storeToRefs(useCartItemStore());
 
-const { cartItems } = storeToRefs(useCartItemStore());
-
+const image = computed(() => currentUser.value?.image)
 const firstName = computed(() => currentUser.value?.name?.split(" ")[0] ?? "");
 </script>
 
 <template>
   <NavigationBar
-    :current-user="currentUser"
     :is-admin="isAdmin"
     :is-logged-in="isLoggedIn"
-    :cart-items="cartItems"
+    :total-quantity="totalQuantity"
+    :image="image"
     :first-name="firstName"
   />
 

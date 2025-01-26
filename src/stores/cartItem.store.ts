@@ -58,6 +58,17 @@ export const useCartItemStore = defineStore('cartItem', () => {
     cartItemState.value = {...cartItemState.value, isAddToCart: isAddCart};
   }
 
+  const totalPrice = computed(() => {
+      return cartItemState.value?.cartItems?.reduce(
+        (sum, current) => sum + current.price * current.quantity,
+        0
+      );
+  })
+
+  const totalQuantity = computed(() => {
+    return cartItemState.value?.cartItems?.reduce((sum, current) => sum + current.quantity, 0);
+  })
+
   const setLocalStorageCartItems = (carts: CartItem[]) =>{
     localStorage.setItem('carts', JSON.stringify(carts));
   }
@@ -75,7 +86,15 @@ export const useCartItemStore = defineStore('cartItem', () => {
     getLocalStorageCartItems,
     setLocalStorageCartItems,
     removeLocalStorageCartItems,
-    stateCartItem, addCartItem, editAllCatItems, editCartItem, deleteCartItem, isAddToCart }
+    stateCartItem, 
+    addCartItem, 
+    editAllCatItems, 
+    editCartItem, 
+    deleteCartItem, 
+    isAddToCart,
+    totalPrice,
+    totalQuantity
+   }
 })
 
 

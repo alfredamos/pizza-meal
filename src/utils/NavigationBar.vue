@@ -37,7 +37,7 @@
           <img
             class="w-15 h-auto rounded-full object-cover aspect-square border-indigo-900 border-2"
             alt="Tailwind CSS Navbar component"
-            :src="currentUser.image || '/avatar3.jpg'"
+            :src="image || '/avatar3.jpg'"
           />
         </div>
         <ul
@@ -95,32 +95,19 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { RouterLink } from "vue-router";
-import type { UserResponseModel } from "@/models/users/userResponse.model";
 import type { CartItem } from "@/models/cartItems/cartItem.model";
-import imgUrl from "../../public/images/avatar-vue.jpg";
 
 const props = defineProps<{
-  cartItems: CartItem[];
-  currentUser: UserResponseModel;
+  totalQuantity: number;
   firstName: string;
   isAdmin: boolean;
+  image: string;
   isLoggedIn: boolean;
 }>();
 
 const open = ref(true);
-
-const totalQuantity = computed(() =>
-  props?.cartItems?.reduce((sum, current) => sum + current.quantity, 0)
-);
-
-const totalPrice = computed(() =>
-  props?.cartItems?.reduce(
-    (sum, current) => sum + current.quantity * current.price,
-    0
-  )
-);
 
 const onOpenDropdown = () => {
   console.log("In-navbar!!!");
