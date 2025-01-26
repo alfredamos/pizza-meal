@@ -124,7 +124,5 @@ const totalQuantity =(carts: CartItem[]) =>{
     quantityIncrease,
     removeCartItem,
     subTotal,
-    totalPrice,
-    totalQuantity
   };
 });
