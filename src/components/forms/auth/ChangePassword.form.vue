@@ -4,8 +4,8 @@
   @submit.prevent="submitForm"
 >
   <h4 class="font-bold text-slate-800 text-2xl mb-6">Change Password Form</h4>
-  <div class="mb-6 w-full px-10">
-    <label for="email" class="flex flex-start w-full font-medium tracking-wide">
+  <div class="mb-4 w-full px-10">
+    <label for="email" class="flex flex-start w-full font-semibold tracking-wide">
       Email
     </label>
     <input
@@ -16,8 +16,8 @@
       class="border-solid border-2 border-gray-300 focus:border-indigo-600 focus:outline-none bg-slate-200 w-full p-2 rounded-lg text-black"
     />
   </div>
-  <div class="mb-6 w-full px-10">
-    <label for="oldPassword" class="flex flex-start w-full font-medium">
+  <div class="mb-4 w-full px-10">
+    <label for="oldPassword" class="flex flex-start w-full font-semibold">
       Old Password
     </label>
     <input
@@ -28,8 +28,8 @@
       class="border-solid border-2 border-gray-300 focus:border-indigo-600 focus:outline-none bg-slate-200 w-full p-2 rounded-lg text-black"
     />
   </div>
-  <div class="mb-6 w-full px-10">
-    <label for="newPassword" class="flex flex-start w-full font-medium">
+  <div class="mb-4 w-full px-10">
+    <label for="newPassword" class="flex flex-start w-full font-semibold">
       New Password
     </label>
     <input
@@ -40,8 +40,8 @@
       class="border-solid border-2 border-gray-300 focus:border-indigo-600 focus:outline-none bg-slate-200 w-full p-2 rounded-lg text-black"
     />
   </div>
-  <div class="mb-6 w-full px-10">
-    <label for="confirmPassword" class="flex flex-start w-full font-medium">
+  <div class="mb-8 w-full px-10">
+    <label for="confirmPassword" class="flex flex-start w-full font-semibold">
       Confirm Password
     </label>
     <input
@@ -52,23 +52,22 @@
       class="border-solid border-2 border-gray-300 focus:border-indigo-600 focus:outline-none bg-slate-200 w-full p-2 rounded-lg text-black"
     />
   </div>
-  <div class="flex justify-between w-full px-10">
+  <div class="flex gap-4 w-full px-10">
     <button
       type="submit"
-      class="py-2 px-4 border-2 border-indigo-900 hover:bg-indigo-900 hover:text-white text-indigo-900 font-bold text-lg rounded-lg mr-4 w-full"
+      class="flex-1 py-2 px-4 border-2 border-indigo-900 hover:bg-indigo-900 hover:text-white text-indigo-900 font-bold text-lg rounded-lg"
     >
       Submit
     </button>
     <button
       type="button"
-      class="py-2 px-4 border-2 border-yellow-900 hover:bg-yellow-900 hover:text-white text-yellow-900 font-bold text-lg rounded-lg mr-4 w-full"
+      class="flex-1 py-2 px-4 border-2 border-yellow-900 hover:bg-yellow-900 hover:text-white text-yellow-900 font-bold text-lg rounded-lg"
       @click="backToList()"
     >
       Cancel
     </button>
   </div>
 </form>
-
 </template>
 
 <script lang="ts" setup>
