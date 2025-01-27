@@ -7,7 +7,7 @@
     <div class="mb-6 w-full px-10">
       <label
         for="email"
-        class="flex flex-start w-full font-medium tracking-wide"
+        class="flex flex-start w-full font-semibold tracking-wide"
       >
         Email
       </label>
@@ -19,8 +19,8 @@
         class="border-solid border-2 border-gray-300 focus:border-indigo-600 focus:outline-none bg-slate-200 w-full p-2 rounded-lg text-black"
       />
     </div>
-    <div class="mb-6 w-full px-10">
-      <label for="password" class="flex flex-start w-full font-medium">
+    <div class="mb-12 w-full px-10">
+      <label for="password" class="flex flex-start w-full font-semibold">
         Password
       </label>
       <input
@@ -31,26 +31,30 @@
         class="border-solid border-2 border-gray-300 focus:border-indigo-600 focus:outline-none bg-slate-200 w-full p-2 rounded-lg text-black"
       />
     </div>
-    <div class="flex justify-between w-full px-10">
+    <div class="flex px-10 mb-6 w-full gap-4">
       <button
         type="submit"
-        class="py-2 px-4 border-2 border-indigo-900 hover:bg-indigo-900 hover:text-white text-indigo-900 font-bold text-lg rounded-lg mr-4 w-full"
+        class="flex-1 py-2 px-4 border-2 border-indigo-900 hover:bg-indigo-900 hover:text-white text-indigo-900 font-bold text-lg rounded-lg"
       >
         Submit
       </button>
       <button
         type="button"
-        class="py-2 px-4 border-2 border-yellow-900 hover:bg-yellow-900 hover:text-white text-yellow-900 font-bold text-lg rounded-lg mr-4 w-full"
+        class="flex-1 py-2 px-4 border-2 border-yellow-900 hover:bg-yellow-900 hover:text-white text-yellow-900 font-bold text-lg rounded-lg"
         @click="backToList"
       >
         Cancel
       </button>
     </div>
+   <div class="text-muted">
+    <RouterLink to="/signup"><span class="mr-2">Don't have an account?</span><span class="text-indigo-900">Please signup</span></RouterLink>
+   </div> 
   </form>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import {RouterLink} from "vue-router"
 import { LoginModel } from "../../../models/auth/login.model";
 const loginForm = ref<LoginModel>({ ...new LoginModel() });
 
