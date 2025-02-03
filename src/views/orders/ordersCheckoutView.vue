@@ -88,6 +88,6 @@ const subTotal = (cart: CartItem) => {
 };
 
 const total = () => {
-  return cartUtilStore.totalPrice(carts.value);
+  return cartItemStore.totalPrice;
 };
 </script>

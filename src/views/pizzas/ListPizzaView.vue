@@ -95,4 +95,3 @@ const toCart = (carts: CartItem[]) => {
 };
 </script>
 
-<style lang="scss" scoped></style>

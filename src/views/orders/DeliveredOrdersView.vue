@@ -73,4 +73,3 @@ const loadOrder = async () => {
 };
 </script>
 
-<style lang="scss" scoped></style>

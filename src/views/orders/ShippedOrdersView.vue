@@ -106,5 +106,3 @@ const onDeliveredOrder = async (orderId: string) => {
   orderStore.editOrder(updatedOrder);
 };
 </script>
-
-<style lang="scss" scoped></style>

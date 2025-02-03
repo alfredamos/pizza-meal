@@ -22,21 +22,16 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from "pinia";
 import { useCartItemStore } from "@/stores/cartItem.store";
-import { useCartUtilStore } from "@/stores/cartUtil.store";
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { toast } from "vue3-toastify"
 
 const cartItemStore = useCartItemStore();
-const cartUtilStore = useCartUtilStore();
 const router = useRouter();
 
-const { cartItems: carts } = storeToRefs(cartItemStore);
-
-const totalPrice = computed(() => cartUtilStore.totalPrice(carts.value));
-const totalQuantity = computed(() => cartUtilStore.totalQuantity(carts.value));
+const totalPrice = computed(() => cartItemStore.totalPrice);
+const totalQuantity = computed(() => cartItemStore.totalQuantity);
 
 onMounted(() => {
   toast.success("Payment is successful!");

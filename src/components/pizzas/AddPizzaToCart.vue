@@ -52,7 +52,7 @@
     </template>
     <p class="flex justify-between items-center py-2 border-b-2 mt-8">
       <span class="font-light">Total</span>
-      <span class="font-semibold text-wrap">{{ total() }}</span>
+      <span class="font-semibold text-wrap">{{ totalPrice }}</span>
     </p>
     <div class="flex gap-2 justify-between items-center w-full mt-8">
       <button
@@ -81,7 +81,7 @@ import { storeToRefs } from "pinia";
 import { useCartUtilStore } from "@/stores/cartUtil.store";
 
 const cartItemStore = useCartItemStore();
-const { cartItems: carts } = storeToRefs(cartItemStore);
+const { cartItems: carts, totalPrice } = storeToRefs(cartItemStore);
 
 const cartUtilStore = useCartUtilStore();
 
@@ -108,7 +108,5 @@ const subTotal = (cart: CartItem) => {
   return cartUtilStore.subTotal(cart);
 };
 
-const total = () => {
-  return cartUtilStore.totalPrice(carts.value);
-};
+
 </script>

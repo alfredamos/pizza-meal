@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import { UserPayload as User } from '@/models/users/userPayload.model';
 import ModalAlert from '@/utils/ModalAlert.vue';
-import UserViewCard from './userViewCard.vue';
+import UserViewCard from './UserViewCard.vue';
 
 const emit = defineEmits(['onBackToList']);
 const props = defineProps<{isView: boolean; user: User}>();

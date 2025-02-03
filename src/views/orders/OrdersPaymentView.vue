@@ -58,7 +58,6 @@ import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/auth.store";
 import { useCartItemStore } from "@/stores/cartItem.store";
 import { useCartUtilStore } from "@/stores/cartUtil.store";
-import { useRouter } from "vue-router";
 import { computed } from "vue";
 import type { CartItem } from "@/models/cartItems/cartItem.model";
 import { stripeService } from "@/services/stripePay.service";
@@ -67,18 +66,17 @@ import { toast } from "vue3-toastify";
 const authStore = useAuthStore();
 const cartItemStore = useCartItemStore();
 const cartUtilStore = useCartUtilStore();
-const router = useRouter();
 
 const { cartItems: carts } = storeToRefs(cartItemStore);
 
 const { currentUser } = storeToRefs(authStore);
 const userId = currentUser.value?.id;
 
-const totalPrice = computed(() => cartUtilStore.totalPrice(carts.value));
+const totalPrice = computed(() => cartItemStore.totalPrice);
 
-const initiateStripe = () => {
+const initiateStripe = async() => {
   const orderPayload = cartUtilStore.makeOrder(userId, carts.value);
-  stripeService.checkout(orderPayload);
+  await stripeService.checkout(orderPayload);
   //----> Items payment initiated.
   toast.success("Items payment initiated!")
 };
@@ -89,4 +87,3 @@ const subTotal = (cart: CartItem) => {
 };
 </script>
 
-<style lang="scss" scoped></style>
