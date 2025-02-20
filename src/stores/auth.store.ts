@@ -33,6 +33,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   const editCurrentUser = (userPayload: UserPayload) => {
     authState.value = {...authState.value, currentUser: userPayload}
+    setAuthLocal(authState.value)
   }
 
   const updateAuthState = (authStateNew: AuthState) => {
