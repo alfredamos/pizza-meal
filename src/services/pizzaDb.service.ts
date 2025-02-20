@@ -3,7 +3,7 @@ import type { Pizza } from '@/models/pizzas/pizza.model';
 
 class PizzaDbService extends ApiClientService<Pizza> {
   constructor() {
-    super('http://localhost:5000/api/pizzas');
+    super('http://localhost:3000/api/pizzas');
   }
 }
 

@@ -53,8 +53,8 @@ import { onMounted } from "vue";
 const authStore = useAuthStore();
 const orderStore = useOrderStore();
 
-const { currentUser } = storeToRefs(authStore);
-const userId = currentUser.value?.id;
+const { id } = storeToRefs(authStore);
+const userId = id.value;
 
 const { orders } = storeToRefs(orderStore);
 

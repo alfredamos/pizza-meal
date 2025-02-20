@@ -1,63 +1,66 @@
+import type { UserPayload } from "@/models/users/userPayload.model";
 import { AuthState } from "@/states/authState";
 import { defineStore } from "pinia";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted} from "vue";
 
 export const useAuthStore = defineStore("auth", () => {
-  //----> State
-  const authState = ref<AuthState>({ ...new AuthState() });
+  //----> State.
+  const authState = ref<AuthState>(new AuthState());
 
-  //----> Acts like a constructor
-  onMounted(() => {
-    const stateOfAuth = getLocalAuth();
-
-    if (!!stateOfAuth) {
-      authState.value = { ...stateOfAuth };
-    }
-  });
+  //----> onMounted behaves like a constructor.
+  onMounted(async() => {
+    getAuthLocal();
+  })
 
   //----> Getters
-
+  const currentUser = computed(() => authState.value?.currentUser);
   const isLoggedIn = computed(() => authState.value?.isLoggedIn);
   const isAdmin = computed(() => authState.value?.isAdmin);
-  const currentUser = computed(() => authState.value?.user);
-  const token = computed(() => authState.value?.token);
-
+  const id = computed(() => authState.value?.id);
+  const image = computed(() => authState.value?.image);
+  const name = computed(() => authState.value?.name);
+  
   //----> Actions
   const login = (authStateRes: AuthState) => {
+    console.log("In auth-store, authStateRes : ", authStateRes)
     updateAuthState(authStateRes);
 
-    setLocalAuth(authStateRes);
   };
 
   const logout = () => {
-    removeLocalAuth();
-
     updateAuthState(new AuthState());
   };
 
+  const editCurrentUser = (userPayload: UserPayload) => {
+    authState.value = {...authState.value, currentUser: userPayload}
+  }
+
   const updateAuthState = (authStateNew: AuthState) => {
-    authState.value = { ...authStateNew };
+    authState.value = { ...authStateNew  } ;
+    setAuthLocal(authStateNew);
   };
 
-  const setLocalAuth = (authState: AuthState) => {
-    localStorage.setItem("auth", JSON.stringify(authState));
-  };
+  const setAuthLocal = (authState: AuthState) =>{
+    localStorage.setItem('auth', JSON.stringify(authState))
+  }
 
-  const getLocalAuth = (): AuthState => {
-    return JSON.parse(localStorage.getItem("auth")!) as AuthState;
-  };
+  const getAuthLocal = () =>{
+    const authStateString  =localStorage.getItem('auth');
+    const authStateValue = JSON.parse(authStateString!) as AuthState;
 
-  const removeLocalAuth = () => {
-    localStorage.removeItem("auth");
-  };
+    const authState = !!authStateValue? authStateValue : new AuthState();
+    updateAuthState(authState);
+  }
 
   return {
-    isAdmin,
-    isLoggedIn,
     currentUser,
-    token,
+    editCurrentUser,
+    isAdmin,
+    id,
+    isLoggedIn,
+    image,
     login,
     logout,
-    getLocalAuth,
+    name,
   };
 });

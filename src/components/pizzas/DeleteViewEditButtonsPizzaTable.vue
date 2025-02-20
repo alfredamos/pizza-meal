@@ -66,9 +66,9 @@ const emit = defineEmits(['onEdit', 'onDelete']);
 
 const authStore = useAuthStore();
 
-const { currentUser } = storeToRefs(authStore);
+const { id } = storeToRefs(authStore);
 
-const userId = currentUser.value?.id;
+const userId = id.value;
 
 const pizzaDeleteConfirmation = () => {
   isDeletePizza.value = !isDeletePizza.value;

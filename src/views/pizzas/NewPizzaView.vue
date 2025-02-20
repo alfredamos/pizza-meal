@@ -22,8 +22,8 @@ const pizzaStore = usePizzaStore();
 
 const router = useRouter();
 
-const { currentUser } = storeToRefs(authStore);
-const userId = currentUser.value?.id;
+const { id } = storeToRefs(authStore);
+const userId = id.value;
 
 const pizza: Pizza = {
   id: uuidv4(),

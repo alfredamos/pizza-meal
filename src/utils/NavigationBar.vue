@@ -49,14 +49,14 @@
           "
           @mouseleave="onOpenDropdown()"
         >
-          <template v-if="!!isLoggedIn">
+          <template v-if="!!props?.isLoggedIn">
             <li>
               <RouterLink to="/change-password">Change Password</RouterLink>
             </li>
             <li><RouterLink to="/edit-profile">Edit Profile</RouterLink></li>
           </template>
 
-          <template v-if="isAdmin">
+          <template v-if="props?.isAdmin">
             <li><RouterLink to="/orders">All Orders</RouterLink></li>
             <li>
               <RouterLink to="/orders/orders-delivered"
@@ -77,14 +77,14 @@
             <li><RouterLink to="/users">Users</RouterLink></li>
           </template>
 
-          <template v-if="!!isLoggedIn">
+          <template v-if="!!props?.isLoggedIn">
             <li>
               <RouterLink to="/orders/orders-by-user-id">My Orders</RouterLink>
             </li>
             <li><RouterLink to="/logout">Logout</RouterLink></li>
           </template>
 
-          <template v-if="!isLoggedIn">
+          <template v-if="!props?.isLoggedIn">
             <li><RouterLink to="/login">Login</RouterLink></li>
             <li><RouterLink to="/signup">Signup</RouterLink></li>
           </template>
@@ -97,7 +97,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
-import type { CartItem } from "@/models/cartItems/cartItem.model";
 
 const props = defineProps<{
   totalQuantity: number;

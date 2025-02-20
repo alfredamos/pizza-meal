@@ -5,13 +5,13 @@ import SideBar from "./utils/SideBar.vue";
 import { useAuthStore } from "./stores/auth.store";
 import { storeToRefs } from "pinia";
 import { useCartItemStore } from "./stores/cartItem.store";
-import { computed } from "vue";
+import { computed, watch, watchEffect } from "vue";
 
-const { currentUser, isAdmin, isLoggedIn } = storeToRefs(useAuthStore());
+const { isAdmin, isLoggedIn, image, name } = storeToRefs(useAuthStore());
 const { totalQuantity } = storeToRefs(useCartItemStore());
 
-const image = computed(() => currentUser.value?.image)
-const firstName = computed(() => currentUser.value?.name?.split(" ")[0] ?? "");
+console.log("In app-vue : ", {isAdmin: isAdmin.value, isLoggedIn: isLoggedIn.value, image: image.value, name: name.value})
+const firstName = computed(() => name.value?.split(" ")[0] ?? "");
 </script>
 
 <template>
@@ -26,7 +26,6 @@ const firstName = computed(() => currentUser.value?.name?.split(" ")[0] ?? "");
   <main class="grid grid-cols-12">
     <section class="hidden md:block md:col-span-1 bg-gray-300 min-h-screen">
       <SideBar
-        :current-user="currentUser"
         :is-admin="isAdmin"
         :is-logged-in="isLoggedIn"
       />

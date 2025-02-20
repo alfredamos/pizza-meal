@@ -1,15 +1,17 @@
 <template>
   <div class="overflow-x-auto bg-white m-6 shadow-inner rounded mx-4 p-3">
-    <form @submit.prevent="submitSearch">
+    <!-- <form @submit.prevent="submitSearch"> -->
+     <form>      
       <div class="flex justify-between items-center mb-5 mt-5 w-3/4 mx-auto">
         <input
           type="search"
           name="searchTerm"
           v-model="searchTerm"
+          @input="submitSearch"
           class="border-solid border-2 border-gray-300 focus:border-solid focus:border-indigo-600 focus:outline-none text-black w-full rounded-lg p-3"
         />
         <button
-          type="submit"
+          type="button"
           class="bg-blue-900 hover:bg-rose-700 text-blue-200 text-lg font-bold py-3 px-8 rounded-lg mx-4 uppercase"
         >
           Search
@@ -62,7 +64,6 @@
 </template>
 
 <script lang="ts" setup>
-import { RouterLink } from "vue-router";
 import { UserPayload as User } from "@/models/users/userPayload.model";
 import { useUserStore } from "@/stores/user.store";
 import { onMounted, ref } from "vue";

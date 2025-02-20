@@ -1,6 +1,4 @@
-import { UserResponseModel } from "@/models/users/userResponse.model";
-
-export class AuthState{
+export class ResponseAuth {
   id: string = "";
   name: string = "";
   role: string = "";
@@ -8,5 +6,4 @@ export class AuthState{
   image: string = "";
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
-  currentUser: UserResponseModel = new UserResponseModel();
 }

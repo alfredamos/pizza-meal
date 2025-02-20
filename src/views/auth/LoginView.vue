@@ -9,6 +9,8 @@ import type { LoginModel } from "@/models/auth/login.model";
 import { useAuthStore } from "@/stores/auth.store";
 import { useRouter } from "vue-router";
 import { authDbService } from "../../services/authDb.service";
+import type { LoginResponse } from "@/models/auth/loginResponse.model";
+import type { AuthState } from "@/states/authState";
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -18,12 +20,31 @@ const backToList = () => {
 };
 
 const submitForm = async (loginModel: LoginModel) => {
-  const { data: authStateRes } = await authDbService.login(loginModel);
+  const { data: loginRes } = await authDbService.login(loginModel);
+
+  console.log({loginRes})
 
   toast.success("Login is successful!");
 
-  authStore.login(authStateRes);
+  //----> Transform the data from loginResponse type to authState type
+  const authState = loginDataTransform(loginRes)
+
+  authStore.login(authState);
 
   router.push("/");
 };
+
+const loginDataTransform = (loginRes: LoginResponse): AuthState =>{
+  const authState: AuthState = {
+    id: loginRes?.authResponse?.id,
+    name: loginRes?.authResponse?.name,
+    image: loginRes?.authResponse?.image,
+    isAdmin: loginRes?.authResponse?.isAdmin,
+    isLoggedIn: loginRes?.authResponse?.isLoggedIn,
+    role: loginRes?.authResponse?.role,
+    token: loginRes?.authResponse?.token,
+    currentUser: loginRes?.currentUser
+  }
+  return authState
+}
 </script>

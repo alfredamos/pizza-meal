@@ -4,7 +4,7 @@ import { ApiClientService } from "./apiClient.service";
 
 class OrderDbService extends ApiClientService<OrderModel> {
   constructor() {
-    super('http://localhost:5000/api/orders');
+    super('http://localhost:3000/api/orders');
   }
 
   async orderDelivered(orderId: string) {

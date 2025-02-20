@@ -10,7 +10,7 @@ export class ApiClientService<T> {
   }
 
   async deleteResource(id: string) {
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.baseUrl}/${id}/delete`;
 
     const response = await http.delete<T>(url);
 
@@ -18,7 +18,7 @@ export class ApiClientService<T> {
   }
 
   async editResource(id: string, resource: T) {
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.baseUrl}/${id}/edit`;
 
     const response = await http.patch<T>(url, resource);
 
@@ -28,7 +28,7 @@ export class ApiClientService<T> {
   }
 
   async getOneResource(id: string) {
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.baseUrl}/${id}/detail`;
 
     const response = await http.get<T>(url);
 

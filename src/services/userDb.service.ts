@@ -3,7 +3,7 @@ import { ApiClientService } from "./apiClient.service";
 
 export class UserDbService extends ApiClientService<UserPayload> {
   constructor() {
-    super("http://localhost:5000/api/users");
+    super("http://localhost:3000/api/users");
   }
 }
 

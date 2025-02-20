@@ -59,9 +59,8 @@ import { FaHome, FaEdit, FaUserEdit, FaUsers } from "vue3-icons/fa";
 import { GiFullPizza } from "vue3-icons/gi";
 import { RiLoginBoxLine, RiLogoutBoxFill } from "vue3-icons/ri";
 import { SiGnuprivacyguard } from "vue3-icons/si";
-import type { UserResponseModel } from "@/models/users/userResponse.model";
 
-const props = defineProps<{currentUser: UserResponseModel, isAdmin: boolean, isLoggedIn: boolean}>();
+const props = defineProps<{isAdmin: boolean, isLoggedIn: boolean}>();
 </script>
 
 <style lang="scss" scoped></style>
