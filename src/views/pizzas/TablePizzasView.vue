@@ -45,10 +45,14 @@
               class="object-cover w-20 h-20"
             />
           </td>
+         
           <td>{{ pizza.name }}</td>
           <td>{{ pizza.price }}</td>
           <td>{{ pizza.quantity }}</td>
-          <td>{{ pizza.description }}</td>
+           <td>
+        <span class="text-muted mr-4">{{isShowMore ? pizza.description : pizza.description.substring(0,40) }}</span>
+        <button class="bg-zinc-200 text-indigo-900 py-1 px-2 text-sm rounded-lg flex justify-center items-center hover:bg-indigo-900 hover:text-zinc-200 font-semibold" @click="showMoreText(pizza.id)" type="button">{{isShowMore ? "Less" : "More"}}</button>
+          </td>
           <td>{{ pizza.topping }}</td>
           <td>
             <DeleteViewEditButtonsPizzaTable
@@ -81,23 +85,38 @@ import { storeToRefs } from "pinia";
 import { pizzaDbService } from "@/services/pizzaDb.service";
 import DeleteViewEditButtonsPizzaTable from "@/components/pizzas/DeleteViewEditButtonsPizzaTable.vue";
 
+//----> State
 const searchTerm = ref("");
+const isShowMore = ref(false);
 
+//----> Stores
 const pizzaStore = usePizzaStore();
 const { pizzas } = storeToRefs(pizzaStore);
 
 const filteredPizzas = ref<Pizza[]>([]);
 
+//----> Life cycle.
 onMounted(() => {
   loadPizza();
 });
 
+//----> Actions
 const loadPizza = async () => {
   const { data: pizzas } = await pizzaDbService.getAllResources();
   pizzaStore.editAllPizzas(pizzas);
   filteredPizzas.value = [...pizzas];
   console.log("in on-mounted, pizzas : ", pizzas);
 };
+
+const showMoreText = (pizzaId: string) => {
+  console.log("pizza-id : ", pizzaId);
+  pizzas.value.forEach(pizza =>  {
+    if(pizza.id === pizzaId){
+      console.log("loop-id : ", pizza.id , " , ", "given-id : ", pizzaId)
+      isShowMore.value = !isShowMore.value;
+    }
+  })
+}
 
 const submitSearch = async () => {
   const searchedPizzas = pizzas.value?.filter(

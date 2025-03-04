@@ -4,7 +4,7 @@
     class="flex flex-col justify-between items-end mx-auto my-auto bg-white text-black max-w-lg px-12 py-40 rounded-lg shadow-lg mt-24"
   >
     <h1 class="text-3xl">There are no orders to display!</h1>
-    <span class="mt-32 text-indigo-900"
+    <span class="mt-32 text-indigo-900 font-bold hover:text-rose-900"
       ><RouterLink to="/">Go Home</RouterLink></span
     >
   </div>

@@ -15,7 +15,7 @@
           class="object-cover w-full h-48"
         />
       </figure>
-      <span class="flex justify-end mr-1 text-rose-900 font-bold"><RouterLink :to="`/pizzas/detail/${pizza?.id}`" @click="detailPizza(pizza)">Detail</RouterLink></span>
+      <span class="flex justify-end mr-1 text-rose-900 font-bold hover:text-indigo-900"><RouterLink :to="`/pizzas/detail/${pizza?.id}`" @click="detailPizza(pizza)">Detail</RouterLink></span>
       <div class="card-body">
         <h2 class="card-title">
           <RouterLink :to="`/pizzas/detail/${pizza?.id}`" @click="detailPizza(pizza)">{{pizza.name}}</RouterLink>
@@ -23,10 +23,10 @@
         <p>${{ pizza.price }}</p>
         <p>
         <span class="text-muted mr-4">{{isShowMore ? pizza.description : pizza.description.substring(0,40) }}</span>
-        <button class="bg-zinc-300 text-indigo-900 py-1 px-2 text-sm rounded-lg flex justify-center items-center text-muted" @click="showMoreText(pizza.id)" type="button">{{isShowMore ? "Less" : "More"}}</button>
+        <button class="bg-zinc-200 text-indigo-900 py-1 px-2 text-sm rounded-lg flex justify-center items-center hover:bg-indigo-900 hover:text-zinc-200 font-semibold" @click="showMoreText(pizza.id)" type="button">{{isShowMore ? "Less" : "More"}}</button>
       </p>
         <div class="card-actions justify-end">
-          <button class="btn btn-primary" @click="addToCart(pizza)">
+          <button class="btn btn-primary font-semibold hover:text-indigo-900 hover:bg-zinc-200" @click="addToCart(pizza)">
             Buy Now
           </button>
         </div>
