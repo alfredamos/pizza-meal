@@ -1,4 +1,4 @@
-import type { Pizza } from "@/models/pizzas/pizza.model";
+import { Pizza } from "@/models/pizzas/pizza.model";
 import { PizzaState } from "@/models/pizzas/pizzaState.model";
 import { defineStore } from "pinia";
 import { computed, onMounted, ref } from "vue";
@@ -6,25 +6,32 @@ import { computed, onMounted, ref } from "vue";
 export const usePizzaStore = defineStore("pizza", () => {
   //----> State
   const pizzaState = ref<PizzaState>({ ...new PizzaState() });
+  const pizzaDetail = ref<Pizza>(new Pizza())
 
   //----> Acts like a constructor
   onMounted(() => {
-    const stateOfPizza = getLocalStoragePizzas();
+    const pizzas = getLocalStorage<Pizza[]>("pizzas");
+    const pizzaDetail = getLocalStorage<Pizza>("pizza")
 
-    if (!!stateOfPizza) {
-      pizzaState.value = { ...pizzaState.value, pizzas: stateOfPizza };
+    if (!!pizzas) {
+      pizzaState.value = { ...pizzaState.value, pizzas };
+
+    }
+    if (!!pizzaDetail){
+      updatePizza(pizzaDetail);
     }
   });
 
 
   //----> Getters
   const pizzas = computed(() => pizzaState.value?.pizzas);
+  const pizza = computed(() => pizzaDetail.value)
 
   const addPizza = (pizza: Pizza) => {
     const newPizzas = [...pizzaState.value?.pizzas, pizza];
     pizzaState.value = { ...pizzaState.value, pizzas: newPizzas };
 
-    setLocalStoragePizzas(newPizzas);
+    setLocalStorage<Pizza[]>("pizzas", newPizzas);
   };
 
   const deletePizza = (pizzaId: string) => {
@@ -33,7 +40,7 @@ export const usePizzaStore = defineStore("pizza", () => {
     );
     pizzaState.value = { ...pizzaState.value, pizzas: newPizzas };
 
-    setLocalStoragePizzas(newPizzas);
+    setLocalStorage<Pizza[]>("pizzas", newPizzas);
   };
 
   const editPizza = (pizzaPayload: Pizza) => {
@@ -42,25 +49,30 @@ export const usePizzaStore = defineStore("pizza", () => {
     );
     pizzaState.value = { ...pizzaState.value, pizzas: newPizzas };
 
-    setLocalStoragePizzas(newPizzas);
+    setLocalStorage<Pizza[]>("pizzas", newPizzas);
   };
 
   const editAllPizzas = (pizzas: Pizza[]) => {
     pizzaState.value = { ...pizzaState.value, pizzas };
 
-    setLocalStoragePizzas(pizzas);
+    setLocalStorage<Pizza[]>("pizzas", pizzas);
   };
 
-  const setLocalStoragePizzas = (pizzas: Pizza[]) => {
-    localStorage.setItem("pizzas", JSON.stringify(pizzas));
+  const updatePizza = (pizza: Pizza)=>{
+    pizzaDetail.value = pizza;
+    setLocalStorage<Pizza>("pizza", pizza)
+  }
+
+  const setLocalStorage = <T>(key: string, resource: T) => {
+    localStorage.setItem(key, JSON.stringify(resource));
   };
 
-  const getLocalStoragePizzas = () => {
-    return JSON.parse(localStorage.getItem("pizzas")!) as Pizza[];
+  const getLocalStorage = <T>(key: string) => {
+    return JSON.parse(localStorage.getItem(key)!) as T;
   };
 
-  const removeLocalStoragePizzas = () => {
-    localStorage.removeItem("pizzas");
+  const removeLocalStorage = (key: string) => {
+    localStorage.removeItem(key);
   };
 
   return {
@@ -68,9 +80,11 @@ export const usePizzaStore = defineStore("pizza", () => {
     deletePizza,
     editAllPizzas,
     editPizza,
+    getLocalStorage,
+    pizza,
     pizzas,
-    getLocalStoragePizzas,
-    setLocalStoragePizzas,
-    removeLocalStoragePizzas,
+    removeLocalStorage,
+    setLocalStorage,
+    updatePizza
   };
 });

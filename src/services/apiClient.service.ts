@@ -28,7 +28,7 @@ export class ApiClientService<T> {
   }
 
   async getOneResource(id: string) {
-    const url = `${this.baseUrl}/${id}/detail`;
+    const url = `${this.baseUrl}/${id}`;
 
     const response = await http.get<T>(url);
 

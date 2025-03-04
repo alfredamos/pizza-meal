@@ -104,7 +104,8 @@ const router = createRouter({
       name: "orders-by-user-id",
       beforeEnter: [protectedRoute],
     },
-    { path: "", component: ListPizzaView, name: "home" },
+    { path: "/", component: ListPizzaView, name: "home" },
+
     {
       path: "/pizzas",
       component: TablePizzasView,
@@ -131,7 +132,7 @@ const router = createRouter({
       beforeEnter: [protectedRoute, adminRoute],
     },
     {
-      path: "/pizzas/:id/detail",
+      path: "/pizzas/detail/:id",
       component: DetailPizzaView,
       name: "detail-pizza",
       beforeEnter: [protectedRoute, adminRoute],

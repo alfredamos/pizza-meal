@@ -26,7 +26,7 @@ const logoutSubmit = async() => {
   console.log("Logout, response : ", response)
   toast.success("Logout is successful!");
   cartItemStore.removeLocalStorageCartItems();
-  pizzaStore.removeLocalStoragePizzas();
+  pizzaStore.removeLocalStorage("pizzas");
   authStore.logout();
 
   router.push("/");

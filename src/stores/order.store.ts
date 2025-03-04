@@ -8,10 +8,9 @@ export const useOrderStore = defineStore("order", () => {
   const orderState = ref<OrderState>({ ...new OrderState() });
 
   //----> Getters
-  const stateOrder = computed(() => orderState.value);
-  const orders = computed(() => stateOrder.value?.orders);
-  const isDelivered = computed(() => stateOrder.value?.isDelivered);
-  const isShipped = computed(() => stateOrder.value?.isShipped);
+  const orders = computed(() => orderState.value?.orders);
+  const isDelivered = computed(() => orderState.value?.isDelivered);
+  const isShipped = computed(() => orderState.value?.isShipped);
 
   //----> Actions
   const addOrder = (order: OrderModel) => {
@@ -79,7 +78,6 @@ export const useOrderStore = defineStore("order", () => {
     changeIsDelivered,
     changeIsPending,
     changeIsShipped,
-    stateOrder,
     orders,
     getLocalStorageOrders,
     setLocalStorageOrders,
