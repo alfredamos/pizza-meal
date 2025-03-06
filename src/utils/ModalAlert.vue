@@ -1,5 +1,5 @@
 <template>
-  <dialog class="modal" @click="close" ref="dialogRef">
+  <dialog class="modal w-3/4 mx-auto" @click="close" ref="dialogRef">
       <slot></slot>
   </dialog>
 </template>

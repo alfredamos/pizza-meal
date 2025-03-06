@@ -2,6 +2,7 @@
   <div
     class="grid grid-cols-1 gap-2 m-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
   >
+  
     <div
       class="card card-compact bg-base-100 w-full shadow-xl text-stone-700 m-2"
       v-for="pizza in pizzas"

@@ -17,7 +17,7 @@
     v-if="isViewPizza"
     :isView="isViewPizza"
     :pizza="pizza"
-    @onBackToList="backToList()"
+    @onBackToList="backToList"
   />
 
   <div class="flex items-center w-full mt-2">

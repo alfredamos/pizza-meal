@@ -16,7 +16,9 @@
       />
 
     </figure>
-
+<span class="flex justify-end items-center">
+    <button type="button" class=" text-rose-900 hover:text-zinc-200 hover:bg-indigo-900 py-1 px-2 text-sm rounded-lg flex justify-center items-center text-muted font-semibold" @click="backToList">Close</button>
+  </span>
   </div>
   </div>
 
